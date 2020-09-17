@@ -5,7 +5,7 @@
  * Student ID: mkarimif
  ********************************************************************/
 
-public class asn1_a {
+public class insertionSort {
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  
 	 * This method gets size as input and makes a reversed array of that size

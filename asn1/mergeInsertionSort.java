@@ -4,7 +4,7 @@
  * Student ID: mkarimif
  ********************************************************************/
 
-public class asn1_b {
+public class mergeInsertionSort {
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  
 	 * This method gets size as input and makes a reversed array of that size
@@ -18,14 +18,19 @@ public class asn1_b {
 		return array;
 	}
 	
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-	 * This method gets a list and sorts it using MergeSort algorithm
-	 * This method is recursive and uses merge method to merge 2 arrays
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  
+	 * This method uses MergeSort mainly and InsertionSort for arrays of
+	 * size smaller or equal to k to improve performance.
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	public static void MergeSort(int[] A){
+	public static void MergeInsertionSort(int[] A, int k){
 		if (A.length <2) {
 			return;
 		}
+		else if (A.length<=k) {
+			insertionSort.InsertionSort(A);
+			return;
+		}
+		else {
 		int mid = A.length/2;
 		int [] left = new int[mid];
 		int [] right = new int[A.length-mid];
@@ -37,13 +42,15 @@ public class asn1_b {
 			right[i-mid] = A[i];
 		}
 		
-		MergeSort(left);
-		MergeSort(right);
+		MergeInsertionSort(left,k);
+		MergeInsertionSort(right,k);
 		merge(left,right,A);
+		}
+
 	}
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-	 * This is a helping method used by MergeSort which gets two sorted 
+	 * This is a helping method used by MergeInsertionSort which gets two sorted 
 	 * arrays (right and left), and merges the two and saves the results
 	 * in mergedList
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -82,9 +89,10 @@ public class asn1_b {
 		}
 		return mergedList;
 	}
+
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-	 * This method displays the first 20 elements of an array
+	 * This method displays the first 20 elements of an array in a nice format
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	public static void display(int[] list) {
 		if (list.length > 19) {
@@ -101,12 +109,15 @@ public class asn1_b {
 	
 	public static void main(String[] args) {
 		int size = 0;
-		// if user doesn't enter size
-		if (args.length == 0) {
-			System.out.println("Please enter the array size. (e.g asn1_b 20000)");
+		int k = 0;
+		// if user doesn't enter size or k
+		if (args.length < 2) {
+			System.out.println("Please enter the array size and k. (e.g asn1_c 20000 2)");
 		}
 		else {
 			size = Integer.parseInt(args[0]);
+			k = Integer.parseInt(args[1]);
+			
 			int [] array = makeReverseArray (size);
 			
 			// display the first 20 elements of array before sorting
@@ -115,7 +126,7 @@ public class asn1_b {
 			display(array);
 			
 			// sort the array
-			MergeSort(array);
+			MergeInsertionSort(array,k);
 			
 			// display the first 20 elements of array after sorting
 			System.out.println("First 20 elements AFTER sorting:");
